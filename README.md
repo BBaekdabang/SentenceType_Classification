@@ -63,12 +63,12 @@
         <tr>
             <td rowspan = 2>Ensemble</td>       
             <td>
-                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/HardVoting.ipynb">HardVoting.ipynb</a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/hardvoting.py">hardvoting.py</a>
             <td> Hard Voting</td>
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/HardVoting.ipynb">HardVoting.ipynb</a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/softvoting.py">softvoting.py</a>
             <td> Soft Voting</td>
         </tr>
 
@@ -169,7 +169,7 @@
     
 - ## Ensemble
     - #### Hard Voting
-        > [HardVoting.ipynb 참조](https://github.com/BBaekdabang/EmotionClassification/blob/main/HardVoting.ipynb)
+        > [hardvoting.py 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/hardvoting.py)
         
     ```c
 
@@ -189,7 +189,7 @@
     ```
         
     - #### Soft Voting        
-        > [SoftVoting.ipynb 참조](https://github.com/BBaekdabang/EmotionClassification/blob/main/SoftVoting.ipynb)
+        > [softvoting.py 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/softvoting.py)
 
     ```c
     
