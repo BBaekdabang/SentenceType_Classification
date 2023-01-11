@@ -26,7 +26,6 @@ warnings.filterwarnings("ignore")
 
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-
 tokenizer = AutoTokenizer.from_pretrained('paust/pko-t5-base')
 
 label_list = ['사실형', '대화형', '추론형', '예측형']
@@ -50,8 +49,6 @@ def train():
                                 batch_size=32,
                                 num_workers=8,
                                 pin_memory=True,)
-    
-    
     
     print('loading model')
     model = T5_model(len(label_list), len(tokenizer))
