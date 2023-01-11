@@ -36,12 +36,12 @@
         </tr>
         <tr>
             <td>
-                <a href=""></a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/T5/t5_train.py">t5_train.py</a>
             <td> T5 </td>
         </tr>
         <tr>
             <td>
-                <a href=""></a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/MLP/mlp_train.py">mlp_train.py</a>
             <td> MLP </td>
         </tr>
         <tr>
@@ -51,24 +51,24 @@
             <td> BERT/RoBERTa/ELECTRA </td>
         <tr>
             <td>
-                <a href=""></a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/T5/t5_evaluate.py">t5_evaluate.py</a>
             <td> T5 </td>
         </tr>
         <tr>
             <td>
-                <a href=""></a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/MLP/mlp_evaluate.py">mlp_evaluate.py</a>
             <td> MLP </td>
         </tr>
         </tr>        
         <tr>
             <td rowspan = 2>Ensemble</td>       
             <td>
-                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/hardvoting.py">hardvoting.py</a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/ensemble/hardvoting.py">hardvoting.py</a>
             <td> Hard Voting</td>
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/softvoting.py">softvoting.py</a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/ensemble/softvoting.py">softvoting.py</a>
             <td> Soft Voting</td>
         </tr>
 
@@ -169,7 +169,7 @@
     
 - ## Ensemble
     - #### Hard Voting
-        > [hardvoting.py 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/hardvoting.py)
+        > [hardvoting.py 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/ensemble/hardvoting.py)
         
     ```c
 
@@ -189,7 +189,7 @@
     ```
         
     - #### Soft Voting        
-        > [softvoting.py 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/softvoting.py)
+        > [softvoting.py 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/ensemble/softvoting.py)
 
     ```c
     
