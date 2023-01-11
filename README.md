@@ -29,27 +29,47 @@
             <td> Startified K-Fold </td>
         </tr>
         <tr>
-            <td rowspan=2>Training</td>
+            <td rowspan=3>Train</td>
             <td>
-                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/Train.ipynb">Train.ipynb</a>     
-            <td> Deep Learning </td>
+                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/Train.ipynb">bert.ipynb</a>     
+            <td> BERT/RoBERTa/ELECTRA </td>
         </tr>
         <tr>
             <td>
                 <a href=""></a>
-            <td> Machine Learning </td>
+            <td> T5 </td>
         </tr>
         <tr>
-            <td>Inference</td>
+            <td>
+                <a href=""></a>
+            <td> MLP </td>
+        </tr>
+        <tr>
+            <td rowspan = 3>Evaluate</td>
             <td>
                 <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/Inference.ipynb">Inference.ipynb</a>     
-            <td> Inference </td>
+            <td> BERT/RoBERTa/ELECTRA </td>
+        <tr>
+            <td>
+                <a href=""></a>
+            <td> T5 </td>
+        </tr>
+        <tr>
+            <td>
+                <a href=""></a>
+            <td> MLP </td>
+        </tr>
         </tr>        
         <tr>
-            <td>Model Ensemble</td>       
+            <td rowspan = 2>Ensemble</td>       
             <td>
                 <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/HardVoting.ipynb">HardVoting.ipynb</a>
             <td> Hard Voting</td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/HardVoting.ipynb">HardVoting.ipynb</a>
+            <td> Soft Voting</td>
         </tr>
 
    </tbody>
@@ -94,31 +114,19 @@
     <thead>
         <tr>
             <th>Model</th>
-            <th>Pre-Trained Dataset</th>
             <th>링크(HuggingFace)</td>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td> BERT/RoBERTa/ELECTRA</td>
-            <td>                 
-                <a href="https://huggingface.co/datasets/viewer/?dataset=emotion">Twitter-Sentiment-Analysis</a></td>
+            <td> RoBERTa</td>
             <td>
-                <a href="https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion">bhadresh-savani/distilbert-base-uncased-emotion</a>
+                <a href="https://huggingface.co/klue/roberta-base">klue/roberta-base</a>
         </tr>
         <tr>
             <td> T5</td>            
-            <td>                 
-                <a href="https://huggingface.co/datasets/viewer/?dataset=emotion">Twitter-Sentiment-Analysis</a></td>
             <td>
-                <a href="https://huggingface.co/bhadresh-savani/bert-base-uncased-emotion">bhadresh-savani/bert-base-uncased-emotion</a>
-        </tr>
-        <tr>
-            <td> MLP</td>
-            <td>                
-                <a href="https://github.com/tae898/multimodal-datasets/tree/a36101638a8121b422ce4a2a17746b25f23335b8">multimodal-datasets</a></td>
-            <td>
-                <a href="https://huggingface.co/tae898/emoberta-base">tae898/emoberta-base</a>
+                <a href="https://huggingface.co/paust/pko-t5-base">paust/pko-t5-base</a>
         </tr>
     </tbody>
     </table>
@@ -157,45 +165,6 @@
         
         return final_layer
      ```
-
-
-
-- ## SAM Optimizer
-
-   > [SAM_Optimizer.ipynb 참조](https://github.com/BBaekdabang/EmotionClassification/blob/main/SAM_Optimizer.ipynb)
-   
-    ```c
-
-    class SAM(torch.optim.Optimizer):
-        def __init__(self, params, base_optimizer, rho=0.05, **kwargs):
-            assert rho >= 0.0, f"Invalid rho, should be non-negative: {rho}"
-
-            defaults = dict(rho=rho, **kwargs)
-            super(SAM, self).__init__(params, defaults)
-
-            self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
-            self.param_groups = self.base_optimizer.param_groups
-
-        @torch.no_grad()
-        def first_step(self, zero_grad=False):
-            grad_norm = self._grad_norm()
-            for group in self.param_groups:
-                scale = group["rho"] / (grad_norm + 1e-12)
-
-                for p in group["params"]:
-                    if p.grad is None: continue
-                    e_w = p.grad * scale.to(p)
-                    p.add_(e_w)  # climb to the local maximum "w + e(w)"
-                    self.state[p]["e_w"] = e_w
-
-            if zero_grad: self.zero_grad()
-
-        ...    
-
-        자세한 코드는 code/test.ipynb 참조
-
-        return norm
-    ```
     
     
 - ## Ensemble
@@ -204,20 +173,17 @@
         
     ```c
 
-    def HardVoting(inference1, inference2, inference3) :
+    def HardVoting(voting_list) :
 
         dic_tmp = {'ID' : [], 'Target' : []}
 
-        for i in range(len(Test)) :
+        for i in range(len(infer)) :
             tmp = []
-            tmp.append(inference1['Target'][i])
-            tmp.append(inference2['Target'][i])
-            tmp.append(inference3['Target'][i])
+            for infer in voting_list :
+                tmp.append(infer['Target'][i])
 
-            dic_tmp['ID'].append(inference1['ID'][i])
+            dic_tmp['ID'].append(infer['ID'][i])
             dic_tmp['Target'].append(Counter(tmp).most_common(n=1)[0][0])
-
-        pd.DataFrame(dic_tmp).to_csv('Ensemble.csv', encoding = 'utf-8', index = False)
 
         return pd.DataFrame(dic_tmp)
     ```
@@ -226,19 +192,12 @@
         > [SoftVoting.ipynb 참조](https://github.com/BBaekdabang/EmotionClassification/blob/main/SoftVoting.ipynb)
 
     ```c
-    def SoftVoting(model1, model2, model3, model4, test_loader, device):
-
-        model1.to(device)
-        model1.eval()
-
-        model2.to(device)
-        model2.eval()
-
-        model3.to(device)
-        model3.eval()
-
-        model4.to(device)
-        model4.eval()
+    
+    def SoftVoting(voting_list, test_loader, device):
+    
+        for model in voting_list:
+            model.to(device)
+            model.eval()
 
         test_predict = []
 
@@ -246,16 +205,13 @@
 
             input_id = input_ids.to(device)
             mask = attention_mask.to(device)
+            tmp = []
 
-            y_pred1 = model1(input_id, mask)
-            y_pred2 = model2(input_id, mask)
-            y_pred3 = model3(input_id, mask)
-            y_pred4 = model4(input_id, mask)
+            for model in voting_list :
+                tmp.append(model(input_id, mask))
 
-            test_predict += ((y_pred1 + y_pred2 + y_pred3 + y_pred4 )/4).argmax(1).detach().cpu().numpy().tolist()
+            test_predict += (( np.sum(tmp) ) / len(voting_list) ).argmax(1).detach().cpu().numpy().tolist()
 
-        print('Done.')
-        
         return test_predict
     ``` 
 
