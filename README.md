@@ -24,14 +24,14 @@
         <tr>
             <td rowspan=1>K-Fold</td>
             <td>
-                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/SAM_Optimizer.ipynb">SAM_Optimizer.ipynb</a>
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/k-fold/Stratified%20K-Fold.ipynb">Stratified K-Fold.ipynb</a>
             </td>
             <td> Startified K-Fold </td>
         </tr>
         <tr>
             <td rowspan=3>Train</td>
             <td>
-                <a href="https://github.com/BBaekdabang/EmotionClassification/blob/main/Train.ipynb">bert.ipynb</a>     
+                <a href="https://github.com/BBaekdabang/SentenceType_Classification/blob/main/BERT/bert.ipynb">bert.ipynb</a>     
             <td> BERT/RoBERTa/ELECTRA </td>
         </tr>
         <tr>
@@ -144,26 +144,17 @@
 
 - ## Stratified K-Fold
    
-   > [Stratified_K-Fold.ipynb 참조](https://github.com/BBaekdabang/EmotionClassification/blob/main/AddLayer.ipynb)
+   > [Stratified_K-Fold.ipynb 참조](https://github.com/BBaekdabang/SentenceType_Classification/blob/main/k-fold/Stratified%20K-Fold.ipynb)
 
      ```c
 
-    class BaseModel_AddLayer(nn.Module):
-        def init(self, dropout=0.5, num_classes=len(le.classes_)) :
-            super(BaseModel_AddLayer, self).__init__()
-            self.dropout = nn.Dropout(dropout)
-            self.linear1 = nn.Linear(768, 384)
-            self.linear2 = nn.Linear(384, num_classes)
-            self.gelu = nn.GELU()
-            
-        def forward(self, input_id, mask) :
-            _, pooled_output = self.bert(input_ids= input_id, attention_mask=mask,return_dict=False)
-            dropout_output = self.dropout(pooled_output)
-            linear_output = self.linear1(dropout_output)
-            linear_output = self.linear2(linear_output)
-            final_layer = self.gelu(linear_output)
-        
-        return final_layer
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=41)
+    folds=[]
+
+    for train_idx, valid_idx in skf.split(traindata_type, traindata_type['label']):
+        train_idx = np.array(list(set(list(train_idx))))
+        valid_idx = np.array(list(set(set(valid_idx))))
+        folds.append((train_idx, valid_idx))
      ```
     
     
