@@ -220,11 +220,3 @@
 [4] [T5 : Text-to-Text Transfer Transformer](https://arxiv.org/pdf/1910.10683v3.pdf) : Bujard, Hermann, et al. "[26] A T5 promoter-based transcription-translation system for the analysis of proteins in vitro and in vivo." Methods in enzymology. Vol. 155. Academic Press, 1987. 416-433.
 
 ---
-
-# 바. Members
-Hyoje Jung | flash1253@naver.com<br>
-Yongjae Kim | dydwo322@naver.com<br>
-Hyein Oh | gpdls741@naver.com<br>
-Seungyong Guk | kuksy77@naver.com<br>
-Jaehyeog Lee | tysl4545@naver.com<br>
-Hyojin Kang | khj94111@gmail.com
